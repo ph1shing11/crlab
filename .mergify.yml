@@ -1,0 +1,20 @@
+conflict_resolvers:
+  - language: github-actions
+
+queue_rules:
+  - name: default
+    queue_conditions:
+      - label=cr-queue
+    merge_conditions:
+      - check-success=hold-the-batch
+    merge_method: merge-batch
+    batch_size: 2
+    batch_max_wait_time: 30 s
+
+pull_request_rules:
+  - name: cr lab queue
+    conditions:
+      - base=main
+      - label=cr-queue
+    actions:
+      queue:

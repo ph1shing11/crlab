@@ -1,0 +1,15 @@
+name: w
+on:
+  push:
+    branches: [never-triggers]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build
+        if: github.event_name == 'push'
+        env:
+          MODE: release
+        run: ./scripts/build.sh "$MODE"
